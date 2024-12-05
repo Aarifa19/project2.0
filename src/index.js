@@ -2,8 +2,17 @@ function displayTemperature(response) {
   let temperatureElement = document.querySelector("#current-temperature");
   let temperature = Math.round(response.data.temperature.current);
   let cityElement = document.querySelector("#current-city");
+  let descriptionElement = document.querySelector("#description-element");
+  let humidityElement = document.querySelector("#humidity-element");
+  let windElement = document.querySelector("#wind-element");
+  let iconElement = document.querySelector("#icon-element");
+
   cityElement.innerHTML = response.data.city;
   temperatureElement.innerHTML = temperature;
+  descriptionElement.innerHTML = response.data.condition.description;
+  humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+  windElement.innerHTML = `${response.data.wind.speed}km/h`;
+  iconElement.innerHTML = ``;
 }
 
 function search(event) {
@@ -16,7 +25,6 @@ function search(event) {
 
   axios.get(apiUrl).then(displayTemperature);
 }
-
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
