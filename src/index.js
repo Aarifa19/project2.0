@@ -25,6 +25,7 @@ function search(event) {
 
   axios.get(apiUrl).then(displayTemperature);
 }
+
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
