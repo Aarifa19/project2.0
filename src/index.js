@@ -60,3 +60,29 @@ let currentDateELement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
+
+function flexDetails() {
+  let flexBox = document.querySelector("#flexContainer");
+  let searchInputElement = document.querySelector("#search-input");
+  let flexCity = searchInputElement.value;
+  let flexDays = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+  let today = new Date().toLocaleString("en-us", { weekday: "short" });
+  let currentIndex = flexDays.indexOf(today);
+
+  flexDays.forEach((day, index) => {
+    console.log(day);
+    if (index !== currentIndex) {
+      let dayHtml = `
+      <div class="flex">
+        <div id="flexDay">${day}</div>
+        <div id="flexIcon">☀️</div>
+        <div id="flexMaxTemp">7&deg</div>
+        <div id="flexMinTemp">5&deg</div>
+        <div>
+      `;
+      flexBox.innerHTML += dayHtml;
+    }
+  });
+}
+
+flexDetails();
