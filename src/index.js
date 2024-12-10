@@ -61,28 +61,39 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 
-function flexDetails() {
-  let flexBox = document.querySelector("#flexContainer");
-  let searchInputElement = document.querySelector("#search-input");
-  let flexCity = searchInputElement.value;
-  let flexDays = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+function flexDisplayApi(response) {
+  let flexDays = ["Tue", "Wed", "Thur", "Fri", "Sat", "Sun", "Mon"];
   let today = new Date().toLocaleString("en-us", { weekday: "short" });
   let currentIndex = flexDays.indexOf(today);
 
-  flexDays.forEach((day, index) => {
-    console.log(day);
+  let dailyWeather = response.data.daily;
+
+  dailyWeather.forEach((day, index) => {
+    let iconUrl = day.condition.icon_url;
+    let minTemperature = Math.round(day.temperature.minimum);
+    let maxTemperature = Math.round(day.temperature.maximum);
     if (index !== currentIndex) {
       let dayHtml = `
       <div class="flex">
-        <div id="flexDay">${day}</div>
-        <div id="flexIcon">☀️</div>
-        <div id="flexMaxTemp">7&deg</div>
-        <div id="flexMinTemp">5&deg</div>
+        <div id="flexDay">${flexDays[index]}</div>
+         <div class="day-container">
+      <img src="${iconUrl}" alt="Weather Icon"></div>
+        <div id="flexMaxTemp">${maxTemperature}&deg</div>
+        <div id="flexMinTemp">${minTemperature}&deg</div>
         <div>
-      `;
+ `;
       flexBox.innerHTML += dayHtml;
     }
   });
 }
+function flexDetails(event) {
+  event.preventDefault();
+  let searchInputElement = document.querySelector("#search-input");
+  let flexCity = searchInputElement.value;
+  let flexApiKey = "ca5ct04d9bd0coba87f454389b7fdd40";
+  let flexUrl = `https://api.shecodes.io/weather/v1/forecast?query=${flexCity}&key=${flexApiKey}&units=metric`;
 
-flexDetails();
+  axios.get(flexUrl).then(flexDisplayApi);
+}
+let flexBox = document.querySelector("#flexContainer");
+searchForm.addEventListener("submit", flexDetails);
