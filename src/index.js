@@ -62,27 +62,31 @@ let currentDate = new Date();
 currentDateELement.innerHTML = formatDate(currentDate);
 
 function flexDisplayApi(response) {
-  let flexDays = ["Tue", "Wed", "Thur", "Fri", "Sat", "Sun", "Mon"];
+  let flexDays = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
   let today = new Date().toLocaleString("en-us", { weekday: "short" });
   let currentIndex = flexDays.indexOf(today);
 
   let dailyWeather = response.data.daily;
 
   dailyWeather.forEach((day, index) => {
-    let iconUrl = day.condition.icon_url;
-    let minTemperature = Math.round(day.temperature.minimum);
-    let maxTemperature = Math.round(day.temperature.maximum);
-    if (index !== currentIndex) {
-      let dayHtml = `
+    if (index !== currentIndex && index <= 5) {
+      let iconUrl = day.condition.icon_url;
+      let minTemperature = Math.round(day.temperature.minimum);
+      let maxTemperature = Math.round(day.temperature.maximum);
+      if (index !== currentIndex) {
+        let dayHtml = `
       <div class="flex">
-        <div id="flexDay">${flexDays[index]}</div>
-         <div class="day-container">
+        <div class="flexDay" id="flexDay">${flexDays[index]}</div>
+         <div class="flexIcon">
       <img src="${iconUrl}" alt="Weather Icon"></div>
-        <div id="flexMaxTemp">${maxTemperature}&deg</div>
-        <div id="flexMinTemp">${minTemperature}&deg</div>
-        <div>
+        <div class="temperatureFlex">
+      <div class="flexMinTemp" id="flexMaxTemp"><strong>${maxTemperature}&deg</strong></div>
+        <div class="flexMaxTemp" id="flexMinTemp">${minTemperature}&deg</div>
+        </div>
+        </div>
  `;
-      flexBox.innerHTML += dayHtml;
+        flexBox.innerHTML += dayHtml;
+      }
     }
   });
 }
@@ -97,3 +101,4 @@ function flexDetails(event) {
 }
 let flexBox = document.querySelector("#flexContainer");
 searchForm.addEventListener("submit", flexDetails);
+search("polokwane");

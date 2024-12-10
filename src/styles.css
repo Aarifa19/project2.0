@@ -70,9 +70,6 @@ main {
 .current-details strong {
   color: #f65282;
 }
-.flex {
-  display: flex;
-}
 .current-temperature-icon {
   position: relative;
   top: -8px;
@@ -91,10 +88,25 @@ main {
   top: -38px;
 }
 
+.flexContainer {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.temperatureFlex {
+  display: flex;
+  margin: 0 auto;
+  color: #f65282;
+  text-align: center;
+  padding: 0 10px;
+}
+.flexDay {
+  color: rgba(39, 33, 66, 0.4);
+  justify-content: space-between;
+}
 footer {
   border-top: 1px solid #f9f7fe;
   text-align: center;
   padding-top: 15px;
-
   color: rgba(39, 33, 66, 0.4);
 }
