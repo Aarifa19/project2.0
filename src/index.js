@@ -20,7 +20,7 @@ function search(event) {
   let searchInputElement = document.querySelector("#search-input");
   let city = searchInputElement.value;
 
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiKey = "ca5ct04d9bd0coba87f454389b7fdd40";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(displayTemperature);
@@ -53,9 +53,6 @@ function formatDate(date) {
   return `${formattedDay} ${hours}:${minutes}`;
 }
 
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", search);
-
 let currentDateELement = document.querySelector("#current-date");
 let currentDate = new Date();
 
@@ -68,27 +65,29 @@ function flexDisplayApi(response) {
 
   let dailyWeather = response.data.daily;
 
-  dailyWeather.forEach((day, index) => {
-    if (index !== currentIndex && index <= 5) {
-      let iconUrl = day.condition.icon_url;
-      let minTemperature = Math.round(day.temperature.minimum);
-      let maxTemperature = Math.round(day.temperature.maximum);
-      if (index !== currentIndex) {
-        let dayHtml = `
-      <div class="flex">
-        <div class="flexDay" id="flexDay">${flexDays[index]}</div>
-         <div class="flexIcon">
-      <img src="${iconUrl}" alt="Weather Icon"></div>
+  flexBox.innerHTML = "";
+
+  for (let i = 1; i <= 5; i++) {
+    let index = (currentIndex + i) % 7;
+    let day = dailyWeather[index];
+
+    let iconUrl = day.condition.icon_url;
+    let minTemperature = Math.round(day.temperature.minimum);
+    let maxTemperature = Math.round(day.temperature.maximum);
+
+    let dayHtml = `
+    <div class="flex">
+    <div class="flexDay" id="flexDay">${flexDays[index]}</div>
+    <div class="flexIcon">
+    <img src="${iconUrl}" alt="Weather Icon"></div>
         <div class="temperatureFlex">
       <div class="flexMinTemp" id="flexMaxTemp"><strong>${maxTemperature}&deg</strong></div>
         <div class="flexMaxTemp" id="flexMinTemp">${minTemperature}&deg</div>
         </div>
         </div>
  `;
-        flexBox.innerHTML += dayHtml;
-      }
-    }
-  });
+    flexBox.innerHTML += dayHtml;
+  }
 }
 function flexDetails(event) {
   event.preventDefault();
@@ -99,6 +98,22 @@ function flexDetails(event) {
 
   axios.get(flexUrl).then(flexDisplayApi);
 }
+function searchHandle(event) {
+  search(event);
+  flexDetails(event);
+}
+
+let searchForm = document.querySelector("#search-form");
 let flexBox = document.querySelector("#flexContainer");
-searchForm.addEventListener("submit", flexDetails);
-search("polokwane");
+searchForm.addEventListener("submit", searchHandle);
+
+function searchPolokwane() {
+  let apiKey = "ca5ct04d9bd0coba87f454389b7fdd40";
+  let city = "Polokwane";
+  let flexUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(flexUrl).then(flexDisplayApi);
+
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+searchPolokwane();
