@@ -4,9 +4,11 @@ body {
 }
 
 a {
+  color: #3b4a6b;
+}
+a:hover {
   color: #885df1;
 }
-
 .weather-app {
   background: white;
   max-width: 600px;
@@ -34,7 +36,7 @@ header {
 .search-button {
   margin-left: 5px;
   font-size: 16px;
-  background-color: #885df1;
+  background-color: #3b4a6b;
   color: white;
   border: none;
   padding: 20px;
@@ -91,7 +93,7 @@ main {
 .flexContainer {
   display: flex;
   text-align: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .temperatureFlex {
   display: flex;
@@ -102,7 +104,6 @@ main {
 }
 .flexDay {
   color: rgba(39, 33, 66, 0.4);
-  justify-content: space-between;
 }
 footer {
   border-top: 1px solid #f9f7fe;
