@@ -1,10 +1,12 @@
 body {
-  background: #f9f7fe;
+  background: #ffb6c1;
   font-family: "Roboto", sans-serif;
 }
 
 a {
   color: rgb(136, 93, 241);
+  cursor: pointer;
+  color: #a1c9f2;
 }
 a:hover {
   color: #3b4a6b;
