@@ -4,10 +4,10 @@ body {
 }
 
 a {
-  color: #3b4a6b;
+  color: rgb(136, 93, 241);
 }
 a:hover {
-  color: #885df1;
+  color: #3b4a6b;
 }
 .weather-app {
   background: white;
@@ -36,7 +36,7 @@ header {
 .search-button {
   margin-left: 5px;
   font-size: 16px;
-  background-color: #3b4a6b;
+  background-color: #f65282;
   color: white;
   border: none;
   padding: 20px;
@@ -101,6 +101,12 @@ main {
   color: #f65282;
   text-align: center;
   padding: 0 10px;
+}
+.flexMinTemp {
+  padding: 0px 10px;
+}
+.flexMaxTemp {
+  padding: 0px 10px;
 }
 .flexDay {
   color: rgba(39, 33, 66, 0.4);

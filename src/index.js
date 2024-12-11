@@ -6,7 +6,6 @@ function displayTemperature(response) {
   let humidityElement = document.querySelector("#humidity-element");
   let windElement = document.querySelector("#wind-element");
   let iconElement = document.querySelector("#icon-element");
-  let time = document.querySelector("#time");
 
   cityElement.innerHTML = response.data.city;
   temperatureElement.innerHTML = temperature;
@@ -14,7 +13,6 @@ function displayTemperature(response) {
   humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
   windElement.innerHTML = `${response.data.wind.speed}km/h`;
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" />`;
-  console.log(response.data.time);
 }
 
 function search(event) {
@@ -119,6 +117,3 @@ function searchPolokwane() {
   axios.get(apiUrl).then(displayTemperature);
 }
 searchPolokwane();
-
-//#3b4a6b
-//#f65282 //pink
